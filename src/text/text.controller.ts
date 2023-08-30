@@ -10,6 +10,6 @@ export class TextController {
     @Query('phone') phone: string,
     @Query('body') body: string,
   ) {
-    return res.redirect(`sms:${phone}&body=${body}`);
+    return res.redirect(`sms://${phone}/?body=${body}`);
   }
 }
