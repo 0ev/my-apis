@@ -5,20 +5,22 @@ const html = `
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0;url=kakaotalk://kakaopay/money/to/bank">
-    <title>Redirect</title>
+    <title>Copy and Redirect</title>
     <script>
-        function copyText() {
+        function copyAndRedirect() {
             const text = "카카오뱅크 3333195294882";
-            navigator.clipboard.writeText(text).then(() => {
-                console.log('Text copied to clipboard');
-            }).catch(err => {
-                console.error('Error in copying text: ', err);
-            });
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    console.log('Text copied to clipboard');
+                    window.location.href = 'kakaotalk://kakaopay/money/to/bank';
+                })
+                .catch(err => {
+                    console.error('Error in copying text: ', err);
+                });
         }
     </script>
 </head>
-<body onload="copyText()">
+<body onload="copyAndRedirect()">
 </body>
 </html>
 `;
