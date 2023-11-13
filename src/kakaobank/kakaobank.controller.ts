@@ -6,31 +6,44 @@ const html = `
 <head>
     <meta charset="UTF-8">
     <title>Copy and Redirect</title>
-    <script>
-        async function copyAndRedirect() {
-            try {
-                // Check if we have permission to use the clipboard
-                const permissionResult = await navigator.permissions.query({ name: "clipboard-write" });
-                
-                if (permissionResult.state === "granted" || permissionResult.state === "prompt") {
-                    // Copy text to the clipboard
-                    await navigator.clipboard.writeText("카카오뱅크 3333195294882");
-                    console.log('Text copied to clipboard');
-                } else {
-                    console.error('Clipboard permission denied');
-                    return; // Exit the function if permission is denied
-                }
-            } catch (error) {
-                console.error('Error in copying text: ', error);
-                return; // Exit the function in case of an error
-            }
-
-            // Redirect after copying
-            window.location.href = 'kakaotalk://kakaopay/money/to/bank';
+    <style>
+        #copyButton {
+            display: none;
         }
+    </style>
+    <script>
+        function copyToClipboard(text) {
+            if (!navigator.clipboard) {
+                // Fallback for browsers without clipboard API support
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('Text copied. Please manually close this page.');
+            } else {
+                navigator.clipboard.writeText(text)
+                    .then(() => {
+                        console.log('Text copied to clipboard');
+                        window.location.href = 'kakaotalk://kakaopay/money/to/bank';
+                    })
+                    .catch(err => {
+                        console.error('Error in copying text: ', err);
+                        alert('Error copying text. Please manually close this page.');
+                    });
+            }
+        }
+
+        function handleUserInteraction() {
+            document.getElementById('copyButton').style.display = 'block';
+        }
+
+        window.onload = handleUserInteraction;
     </script>
 </head>
-<body onload="copyAndRedirect()">
+<body>
+    <button id="copyButton" onclick="copyToClipboard('카카오뱅크 3333195294882')">Click to Copy & Redirect</button>
 </body>
 </html>
 `;
