@@ -9,6 +9,24 @@ const html = `
     <style>
         #copyButton {
             display: none;
+            background-color: yellow;
+            color: black;
+            font-size: 20px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            height: 100px; /* Adjust the height as needed */
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
     <script>
@@ -43,7 +61,7 @@ const html = `
     </script>
 </head>
 <body>
-    <button id="copyButton" onclick="copyToClipboard('카카오뱅크 3333195294882')">Click to Copy & Redirect</button>
+    <button id="copyButton" onclick="copyToClipboard('카카오뱅크 3333195294882')">kakaopay로 가기</button>
 </body>
 </html>
 `;
