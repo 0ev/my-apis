@@ -7,9 +7,12 @@ export class TextController {
   @Get()
   redirect(
     @Res() res,
-    @Query('phone') phone: string,
-    @Query('body') body: string,
+    @Query('amount') amount: string,
+    @Query('bankCode') bankCode: string,
+    @Query('accountNo') accountNo: string,
   ) {
-    return res.redirect(`sms:${phone}&body=${body}`);
+    return res.redirect(
+      `supertoss://send?amount=${amount}&title=송금&bankCode=${bankCode}&accountNo=${accountNo}`,
+    );
   }
 }
